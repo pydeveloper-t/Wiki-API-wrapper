@@ -1,6 +1,6 @@
 ﻿# Wiki API wrapper
 
-The Wiki API wrapper for internal ETL project
+The Wiki API wrapper for internal ETL project based on FastAPI
 
 
 
