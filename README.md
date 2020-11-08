@@ -12,7 +12,7 @@ The Wiki API wrapper for internal ETL project
 
 
 ## How to install?
-- Install python 3.6 (https://www.python.org/downloads/release/python-360/)
+- Install python 3.x (https://www.python.org/downloads/release/python-3xx/)
 - Install pipenv
 ```
 	pip install  pipenv
