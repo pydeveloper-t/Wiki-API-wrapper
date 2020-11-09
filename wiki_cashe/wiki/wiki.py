@@ -45,4 +45,5 @@ async def wiki_entity(search_term, levenstein_threshold=80, wiki_summary_sentenc
                             wiki_image=image, wiki_url=url)
     except Exception as exc:
         logger.warning(f'wiki entity exception: {exc} search_term = {search_term}, levenstein_threshold = {levenstein_threshold} , wiki_summary_sentences = {wiki_summary_sentences}')
+    print(f'wiki_obj = {wiki_obj}')
     return wiki_obj

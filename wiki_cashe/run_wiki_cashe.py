@@ -23,9 +23,8 @@ async def root():
 
 @app.get('/wiki/{searched_title}', response_model=Wiki)
 async def wiki(searched_title:str):
-    print(searched_title)
     db_value = await db.get_value(key=searched_title)
-    if db_value['success']:
+    if len(db_value.keys()) > 1:
         wiki_value = db_value
     else:
         wiki_value = await wiki_entity(search_term=searched_title)
