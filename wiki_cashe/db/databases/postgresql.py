@@ -25,8 +25,8 @@ class Postgresql(Database):
     async def set_value(self, key, value):
         async with self.postresql_pool.acquire() as connection:
             async with connection.transaction():
-                txt_json = json.dumps(value)
-                await connection.execute(f"insert into scrap.wiki_requests (title, data) values ('{key}', '{txt_json}');")
+                txt_json = json.dumps(value, ensure_ascii=False)
+                await connection.execute("insert into scrap.wiki_requests (title, data) values ($1, $2);", key, txt_json)
 
     @ConvertData
     async def get_value(self, key):
