@@ -26,6 +26,7 @@ class Postgresql(Database):
         async with self.postresql_pool.acquire() as connection:
             async with connection.transaction():
                 txt_json = json.dumps(value, ensure_ascii=False)
+                s = '''insert into scrap.wiki_requests (title, data) values ($1, $2) on conflict(un_title) do update title  = excluded.title, data = excluded.data'''
                 await connection.execute("insert into scrap.wiki_requests (title, data) values ($1, $2);", key, txt_json)
 
     @ConvertData
