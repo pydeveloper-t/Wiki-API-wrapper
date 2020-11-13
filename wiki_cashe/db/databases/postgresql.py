@@ -27,7 +27,7 @@ class Postgresql(Database):
             async with connection.transaction():
                 txt_json = json.dumps(value, ensure_ascii=False)
 
-                await connection.execute("insert into scrap.wiki_requests (title, data) values ($1, $2) on conflict (un_title) do update set title  = excluded.title, data = excluded.data", key, txt_json)
+                await connection.execute("insert into scrap.wiki_requests (title, data) values ($1, $2) on conflict (title) do update set title  = excluded.title, data = excluded.data", key, txt_json)
 
     @ConvertData
     async def get_value(self, key):
