@@ -23,11 +23,15 @@ async def root():
 
 @app.get('/wiki/{searched_title}', response_model=Wiki)
 async def wiki(searched_title:str):
-    db_value = await db.get_value(key=searched_title)
-    if len(db_value.keys()) > 1:
-        wiki_value = db_value
-    else:
-        wiki_value = await wiki_entity(search_term=searched_title)
-        wiki_value_dict = dict(wiki_value)
-        await db.set_value(key=searched_title, value=wiki_value_dict)
+    wiki_value = Wiki()
+    try:
+        db_value = await db.get_value(key=searched_title)
+        if len(db_value.keys()) > 1:
+            wiki_value = db_value
+        else:
+            wiki_value = await wiki_entity(search_term=searched_title)
+            wiki_value_dict = dict(wiki_value)
+            await db.set_value(key=searched_title, value=wiki_value_dict)
+    except Exception as exc:
+        print(f'Exception: {exc} \t Searched title: {searched_title} ')
     return wiki_value

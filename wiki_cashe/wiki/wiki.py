@@ -25,7 +25,7 @@ async def wiki_entity(search_term, levenstein_threshold=80, wiki_summary_sentenc
     wiki_obj  = Wiki()
     try:
         wiki_topics = await wiki.opensearch(search_term)
-        matches = [(wt.title, fuzz.ratio(search_term, wt.title)) for wt in wiki_topics]
+        matches = [(wt.title, fuzz.WRatio(search_term, wt.title)) for wt in wiki_topics]
         sorted_matches = sorted(matches, key=lambda x: x[1], reverse=True)
         best_match = sorted_matches[0]
         if best_match[1] >= levenstein_threshold:
